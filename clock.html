@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+
+function dhm(t){
+    var cd = 24 * 60 * 60 * 1000,
+        ch = 60 * 60 * 1000,
+        d = Math.floor(t / cd),
+        h = Math.floor( (t - d * cd) / ch),
+        m = Math.floor( (t - d * cd - h * ch) / 60000),
+        s = Math.round( (t - (d * cd) - (h * ch) - (m*60000) )/1000),
+        
+        pad = function(n){ return n < 10 ? '0' + n : n; };
+  if( m === 60 ){
+    h++;
+    m = 0;
+  }
+  if( h === 24 ){
+    d++;
+    h = 0;
+  }
+  return [d, pad(h), pad(m),pad(s)].join(':');
+}
+
+function treatAsUTC(date) {
+    var result = new Date(date);
+    result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
+    return result;
+}
+function tday() {
+    var result = new Date();
+    result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
+    return result;
+}
+function daysBetween(startDate, endDate) {
+    var millisecondsPerDay = 24 * 60 * 60 * 1000;
+    var duration =  (treatAsUTC(endDate) - treatAsUTC(startDate))
+    //console.log(duration);
+return dhm(duration); 
+    
+    
+}
+
+
+
+
+function startTime() {
+  
+  document.getElementById('txt').innerHTML = ( daysBetween(treatAsUTC("9/24/2020 13:31"), treatAsUTC("11/11/2020 11:32")))
+  document.getElementById('change').innerHTML = ( daysBetween(treatAsUTC("10/7/2020 17:02"), treatAsUTC("11/11/2020 11:32")))
+  document.getElementById('me').innerHTML = ( daysBetween(treatAsUTC("07/01/2019 11:00"), tday()))
+  document.getElementById('uraMeet').innerHTML = ( daysBetween(treatAsUTC("10/26/2020 12:00"), treatAsUTC("11/11/2020 11:32")))
+  document.getElementById('guessesSent').innerHTML = ( daysBetween(treatAsUTC("12/04/2020 13:57"), tday()))
+
+  
+  var t = setTimeout(startTime, 500);
+}
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+
+</script>
+</head>
+
+<body onload="startTime()">
+
+This is how I'm dealing with my annoyance with the UChicago IRB
+<br><br>
+
+Days since I started on this project
+<div id="me"></div>
+<br>
+
+Days since IRB was submitted till approval
+<div id="txt"></div>
+<br>
+Days since we found out that a request went out to the URA till approval<br>
+(confirmation that the study had been reviewed by IRB)
+<div id="change"></div>
+
+<br>
+Days since URA meeting was supposed to happen till approval
+<div id="uraMeet"></div>
+
+<br>
+Days since we sent in the password guesses
+<div id="guessesSent"></div>
+
+
+</body>
+</html>
