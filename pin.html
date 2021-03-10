@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PIN Pattern Matching</title>
+</head>
+<body>
+
+
+    <script type="text/javascript">
+        
+        function is_numeric(str) {
+          if (typeof str != "string") return false 
+          return !isNaN(str) &&
+                 !isNaN(parseFloat(str))
+        }
+
+        //adjacent (e.g. 6351)
+        function adjacent(pin){
+            if (!is_numeric(pin)){
+                return false;
+            }
+            //todo check if thing is adjacent if it is all 1 digit
+            var adj_obj = {
+                "0":new Set(["7","8","9"]),
+                "1":new Set(["2","4","5"]), 
+                "2":new Set(["1","3","4","5","6"]),
+                "3":new Set(["2","5","6"]),
+                "4":new Set(["1","2","5","7","8"]),
+                "5":new Set(["1","2","3","4","6","7","8","9"]),
+                "6":new Set(["2","3","5","8","9"]),
+                "7":new Set(["4","5","8","0"]),
+                "8":new Set(["4","5","6","7","9","0"]),
+                "9":new Set(["5","6","8","0"])}
+
+            for (var i = 0; i <= pin.length - 2; i++) {
+
+                if (!adj_obj[pin[i]].has(pin[i+1])){
+                    return false;
+                }
+            }
+            return true;
+        }
+        //box (e.g. 1425)
+        function box(pin){
+            //todo is this right?
+            if (!is_numeric(pin)){
+                return false;
+            }
+            var boxes = [new Set(["1","2","4","5"]),
+                        new Set(["2","3","5","6"]),
+                        new Set(["4","5","7","8"]),
+                        new Set(["5","6","8","9"]),
+                        new Set(["7","8","0"]),
+                        new Set(["8","9","0"])];
+            
+
+            var box_true = [true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true]
+
+            for (var i = 0; i <= pin.length - 1; i++) {
+                for (var j = boxes.length - 1; j >= 0; j--) {
+                    if (!boxes[j].has(pin[i])){
+                        box_true[j] = false;
+                    }
+                    
+                }
+                
+            }
+
+            return box_true.includes(true);
+        }
+        //corners (e.g. 9713)
+        function corners(pin){
+            if (!is_numeric(pin)){
+                return false;
+            }
+            var obj = new Set(["1","3","7","9"]);
+
+            for (var i = 0; i <= pin.length - 1; i++) {
+                if (!obj.has(pin[i])){
+                    return false;
+                }
+            }
+            return true;
+        }
+        //cross (e.g. 8246)
+        function cross(pin){
+            //todo is this right?
+            if (!is_numeric(pin)){
+                return false;
+            }
+            var cross1 = new Set(["2","4","5","6","8"]);
+            var cross2 = new Set(["5","7","8","9","0"]);
+
+            var c1 = true;
+            var c2 = true;
+
+            for (var i = 0; i <= pin.length - 1; i++) {
+                if (!cross1.has(pin[i])){
+                    c1 =  false;
+                }
+                if (!cross2.has(pin[i])){
+                    c2 =  false;
+                }
+            }
+            return c1 || c2;
+        }
+        //diagonal swipe (e.g. 1590)
+        function diag(pin){
+            if (!is_numeric(pin)){
+                return false;
+            }
+            //todo check if thing is adjacent if it is all 1 digit
+            var obj = {
+                "0":new Set(["7","9"]),
+                "1":new Set(["5"]), 
+                "2":new Set(["4","6"]),
+                "3":new Set(["5"]),
+                "4":new Set(["2","8"]),
+                "5":new Set(["1","3","7","9"]),
+                "6":new Set(["2","8"]),
+                "7":new Set(["0","5"]),
+                "8":new Set(["4","6"]),
+                "9":new Set(["5","0"])}
+
+            for (var i = 0; i <= pin.length - 2; i++) {
+
+                if (!obj[pin[i]].has(pin[i+1])){
+                    return false;
+                }
+            }
+            return true;
+        }
+        //horizontal swipe (e.g. 5987)
+        function horiz(pin){
+            // does this have to all be left or right???
+            if (!is_numeric(pin)){
+                return false;
+            }
+            var row0 = new Set(["1","2","3"]);
+            var row1 = new Set(["4","5","6"]);
+            var row2 = new Set(["7","8","9"]);
+            var obj = {
+                "0":null,
+                "1":row0, 
+                "2":row0,
+                "3":row0,
+                "4":row1,
+                "5":row1,
+                "6":row1,
+                "7":row2,
+                "8":row2,
+                "9":row2}
+
+            for (var i = 0; i <= pin.length - 1; i++) {
+                if (i==0){
+                    if (pin[i]=="0"){
+                        return false;
+                    }
+
+                    var row = obj[pin[i]];
+                }
+                else if (!row.has(pin[i])){
+                    return false;
+                }
+            }
+            return true;
+        }
+        //vertical swipe (e.g. 8520)
+        function vert(pin){
+            // does this have to all be up or down???
+            if (!is_numeric(pin)){
+                return false;
+            }
+            var col0 = new Set(["1","4","7"]);
+            var col1 = new Set(["0","2","5","8"]);
+            var col2 = new Set(["3","6","9"]);
+            var obj = {
+                "0":col1,
+                "1":col0, 
+                "2":col1,
+                "3":col2,
+                "4":col0,
+                "5":col1,
+                "6":col2,
+                "7":col0,
+                "8":col1,
+                "9":col2}
+
+            for (var i = 0; i <= pin.length - 1; i++) {
+                if (i==0){
+                    var col = obj[pin[i]];
+                }
+                else if (!col.has(pin[i])){
+                    return false;
+                }
+            }
+            return true;
+        }
+        //One digit repeated (e.g.,1111)
+        function oneDigit(pin){
+            if (!is_numeric(pin)){
+                return false;
+            }
+            var char = '';
+            for (var i = 0; i <= pin.length - 1; i++) {
+                
+                if (i==0){
+                    char = pin[i];
+                }
+                else if (pin[i]!=char){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        //Couplets repeated (e.g. 1616)
+        function couplet(pin){
+            if (!is_numeric(pin)){
+                return false;
+            } else if (pin.length <= 3){
+                return false;
+            }
+            var chars = ['',''];
+            for (var i = 0; i <= pin.length - 1; i++) {
+                if (i<=1){
+                    chars[i] = pin[i];
+                    /*if (new Set(chars).size == 1){
+                        //todo check if we want to count this as couplets
+                        return false;
+                    }*/
+                } 
+                else if (pin[i]!=chars[i%2]){
+                    return false;
+                }
+            }
+            return true;
+        }
+        //Numpad pattern (e.g. 2580, 1357)(e.g., 147258)
+        function numpad(pin){
+            if (!is_numeric(pin)){
+                return false;
+            }
+            //todo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            return true;
+        }
+        //Palindrome (e.g. 4554)
+        function palindrome(pin){
+            if (!is_numeric(pin)){
+                return false;
+            } if (pin.length < 2){
+                return false;
+            }
+
+            var half = Math.floor(pin.length / 2);
+            
+            for (var i = 0; i <= half - 1; i++) {
+                if (pin[i] != pin[pin.length-i-1]){
+                    return false;
+                }
+            }
+            return true;
+        }
+        //Sequential up/down (e.g. 2345, 9876)
+        function sequential(pin){
+            //todo wrap around?
+            //todo length
+            if (!is_numeric(pin)){
+                return false;
+            } if (pin.length < 2){
+                return false;
+            }
+            var up = true;
+            var down = true;
+            
+            for (var i = 1; i <= pin.length - 1; i++) {
+                var last_char = parseInt(pin[i-1]);
+                var curr_char = parseInt(pin[i]);
+                if ((up && (last_char + 1 == curr_char || (last_char == 9 && curr_char == 0))) ||
+                   (down && (last_char - 1 == curr_char || (last_char == 0 && curr_char == 9)))){
+                    if (up && down){
+                        up = last_char + 1 == curr_char;
+                        down = last_char - 1 == curr_char;
+
+                    }
+                } else {
+                    return false;
+                }
+            }
+            return true;
+        }
+        //Double sequential (e.g., 112233)
+        function sequential2(pin){
+            //todo wrap around?
+            //todo length
+            if (!is_numeric(pin)){
+                return false;
+            }
+            if (pin.length <=3 || pin.length % 2 != 0){
+                return false;
+            }
+            var down = true;
+            var up = true;
+
+            for (var i = 0; i <= pin.length - 1; i+=2) {
+
+                if (i!=0){
+                    var last_char = parseInt(pin[i-2]);
+                    var curr_char = parseInt(pin[i]);
+                    if (((up && (last_char + 1 == curr_char || (last_char == 9 && curr_char == 0))) ||
+                        (down && (last_char - 1 == curr_char || (last_char == 0 && curr_char == 9)))) &&
+                        pin[i-2]==pin[i-1]){
+                        if (up && down){
+                            up = last_char + 1 == curr_char;
+                            down = last_char - 1 == curr_char;
+                        }
+                        
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            return pin[i-2] == pin[i-1];
+        }
+        //Triple repeated(e.g., 136136)
+        function tripleRepeated(pin){
+            if (!is_numeric(pin)){
+                return false;
+            } else if (pin.length <= 3){
+                return false;
+            }
+            var chars = ['','',''];
+            for (var i = 0; i <= pin.length - 1; i++) {
+                if (i<=2){
+                    chars[i] = pin[i];
+                    if (new Set(chars).size == 1){
+                        //todo check if we want to count this as couplets
+                        return false;
+                    }
+                } 
+                else if (pin[i]!=chars[i%3]){
+                    return false;
+                }
+            }
+            return true;
+        }
+        //Triple sequential (e.g., 111222)
+        function sequential3(pin){
+            //todo wrap around?
+            //todo length
+            if (!is_numeric(pin)){
+                return false;
+            }
+            if (pin.length < 6 || pin.length % 3 != 0){
+                return false;
+            }
+            var down = true;
+            var up = true;
+
+            for (var i = 0; i <= pin.length - 1; i+=3) {
+
+                if (i!=0){
+                    var last_char = parseInt(pin[i-3]);
+                    var curr_char = parseInt(pin[i]);
+                    if (((up && (last_char + 1 == curr_char || (last_char == 9 && curr_char == 0))) ||
+                        (down && (last_char - 1 == curr_char || (last_char == 0 && curr_char == 9)))) &&
+                        (pin[i-2] == pin[i-1] && pin[i-3] == pin[i-1] )){
+                        if (up && down){
+                            up = last_char + 1 == curr_char;
+                            down = last_char - 1 == curr_char;
+                        }
+                        
+                    } else {
+                        return false;
+                    }
+                }
+
+            }
+            return pin[i-2] == pin[i-1] && pin[i-3] == pin[i-1] ;
+        }
+
+
+
+
+        function test_pin(){
+            var pin = document.getElementById("pin").value;
+            var f = "<span style=\"color:red\">False<span>"
+            var t = "<span style=\"color:green\">True<span>"
+
+            
+            document.getElementById("adjacent").innerHTML = adjacent(pin) ? t : f;
+            document.getElementById("box").innerHTML = box(pin) ? t : f;
+            document.getElementById("corners").innerHTML = corners(pin) ? t : f;
+            document.getElementById("cross").innerHTML = cross(pin) ? t : f;
+            document.getElementById("diag").innerHTML = diag(pin) ? t : f;
+            document.getElementById("horiz").innerHTML = horiz(pin) ? t : f;
+            document.getElementById("vert").innerHTML = vert(pin) ? t : f;
+            document.getElementById("oneDigit").innerHTML = oneDigit(pin) ? t : f;
+            document.getElementById("couplet").innerHTML = couplet(pin) ? t : f;
+            document.getElementById("numpad").innerHTML = numpad(pin) ? t : f;
+            document.getElementById("sequential").innerHTML = sequential(pin) ? t : f;
+            document.getElementById("palindrome").innerHTML = palindrome(pin) ? t : f;
+            document.getElementById("sequential2").innerHTML = sequential2(pin) ? t : f;
+            document.getElementById("sequential3").innerHTML = sequential3(pin) ? t : f;
+            document.getElementById("tripleRepeated").innerHTML = tripleRepeated(pin) ? t : f;
+
+
+        }
+    </script>
+
+
+    PIN:
+    <input id="pin" type="number" onchange="test_pin();">
+    <br><br>
+
+    Adjacent:
+    <div id="adjacent">None</div>
+    <br><br>
+
+    Box:
+    <div id="box">None</div>
+    <br><br>
+
+    Corners:
+    <div id="corners">None</div>
+    <br><br>
+
+    Cross:
+    <div id="cross">None</div>
+    <br><br>
+
+    Diag:
+    <div id="diag">None</div>
+    <br><br>
+
+    horiz:
+    <div id="horiz">None</div>
+    <br><br>
+
+    vert:
+    <div id="vert">None</div>
+    <br><br>
+
+    oneDigit:
+    <div id="oneDigit">None</div>
+    <br><br>
+
+    couplet:
+    <div id="couplet">None</div>
+    <br><br>
+
+    numpad:
+    <div id="numpad">None</div> yeah i don't think this one is a thing
+    <br><br>
+
+    sequential:
+    <div id="sequential">None</div>
+    <br><br>
+
+    sequential2:
+    <div id="sequential2">None</div>
+    <br><br>
+
+    sequential3:
+    <div id="sequential3">None</div>
+    <br><br>
+
+    palindrome:
+    <div id="palindrome">None</div>
+    <br><br>
+
+    tripleRepeated:
+    <div id="tripleRepeated">None</div>
+    <br><br>
+
+
+</body>
+</html>
