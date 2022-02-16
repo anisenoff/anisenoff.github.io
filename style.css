@@ -26,6 +26,30 @@ h2{
   font-size: 1.2em;
 }
 
+li{
+  margin: 10px 0;
+}
+
+
+.papername {
+font-weight: bold;
+}
+
+.pubname {
+font-style: italic;
+}
+
+.publocation {
+
+}
+
+.paperlink {
+
+}
+
+
+
+
 /* Header/Blog Title */
 .header {
   padding: 30px;
