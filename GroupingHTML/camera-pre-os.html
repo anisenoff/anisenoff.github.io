@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>RightNow (OS Single)</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery-3.6.1.min.js"></script>
+    <script src="index.js"></script>
+</head>
+
+<body onload="WriteToLog('page_loads')">
+
+
+        <div id="overlay1" class="overlay">
+            <div class="center">
+                <div class="prompt">
+                    <div style="padding: 5%;">
+                        <span style="font-weight: bold;text-align: center;">"RightNow" Would like to Access camera </span>
+                        <br><br>
+
+                        RightNow uses the camera to capture and share pictures with your friends
+                        <br><br>
+                    </div>
+                    <div class="center" style="font-size: 1.1em;">
+                        <div class="consent-button" onclick="window.location.href = 'sink.html'";>Allow</div>
+                        <div class="consent-button" onclick="window.location.href = 'sink.html'" >Deny</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--onclick="document.getElementById('overlay').style.display = 'none';"-->
+        </div>
+
+        
+            <img src="./img/header.png" style="width:100vw;height:10vh">
+            <div id="AppName">
+                <span style="font-size: 4.5vh;">RightNow</span>
+            </div>
+
+            <div id="bodycontent">
+
+                
+
+
+
+
+                <div style="margin: 10px;" >
+
+                <span style="font-size: 1.2em;font-weight: bold;">
+                    To take photos, we need access to your device's camera
+                </span>
+                <br>
+                <br>
+
+                <span style="font-size: 1.1em;">How you'll use this</span><br>
+                    <span style="font-size: .8em;">Sed lectus lacus, placerat in dapibus nec, rutrum fermentum urna. Proin quis ipsum mi.</span>
+                <br>
+                <br>
+
+                <span style="font-size: 1.1em;">How we'll use this</span><br>
+                <span style="font-size: .8em;"> Sed lectus lacus, placerat in dapibus nec, rutrum fermentum urna. Proin quis ipsum mi.</span>
+                <br>
+                <br>
+
+                <span style="font-size: 1.1em;">How the settings work</span><br>
+                <span style="font-size: .8em;">You can change your permissions at
+                any time in your device settings. If you
+                allow camera access now, you won't
+                have to enable it next time you want to
+                use the camera. </span>
+                <br>
+                <br>
+                <br>
+
+            </div>
+
+                <div class="center">
+                    
+                        <button type="submit" class="center-button" onclick="Prompt();">Continue</button>
+                    
+                </div>
+
+
+                <script>
+                    function Prompt() {
+
+                        //overlay
+                        document.getElementById("overlay1").style.display = "block";
+
+                    }
+
+
+                </script>
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+            <div id="footer">
+                <img src="./img/footer.png" style="width:100vw;height:7vh">
+            </div>
+        
+    
+
+</body>
+
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>RightNow (App Multi)</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery-3.6.1.min.js"></script>
+    <script src="index.js"></script>
+</head>
+
+<body onload="WriteToLog('page_loads')">
+    <script>
+
+    function Prompt() {
+        document.getElementById("overlay").style.display = "block";
+
+    }
+
+        function ToggleDescription(elemID) {
+            
+
+            //overlay
+            if (document.getElementById(elemID).style.display == "block") {
+                //set to none
+                document.getElementById(elemID).style.display = "none";
+                document.getElementById(elemID + "-click").innerText = "+";
+
+            } else {
+                document.getElementById(elemID).style.display = "block";
+                document.getElementById(elemID + "-click").innerText = "-";
+            }
+
+        }
+
+    </script>
+
+    <div id="overlay" class="overlay" style="background-color: white;">
+        <img src="./img/header.png" style="width:100vw;height:10vh">
+        <div id="AppName">
+            <span style="font-size: 4.5vh;vertical-align: text-top;">RightNow</span>
+        </div>
+        
+        <div id="bodycontent">
+        
+        <button onclick="document.getElementById('overlay').style.display = 'none';" class="back-button">&lt;</button>
+
+        <div style="font-size: 1.1em; padding: 5%;">
+            Camera
+            <div class="permission-header">
+                <input type="radio" name="camera-radio" value="Allow" />
+                <div style="flex: 1;">Allow</div>
+            </div>
+            <div class="permission-header">
+                <input type="radio" name="camera-radio" value="Deny" />
+                <div style="flex: 1;">Deny</div>
+            </div>
+            <br>
+            Notifications
+            <div class="permission-header">
+                <input type="radio" name="notifications-radio" value="Allow" />
+                <div style="flex: 1;">Allow</div>
+            </div>
+            <div class="permission-header">
+                <input type="radio" name="notifications-radio" value="Deny" />
+                <div style="flex: 1;">Deny</div>
+            </div>
+
+        </div>
+
+
+
+            
+        
+            <div class="center">
+                <button type="submit" class="center-button" onclick="window.location.href = 'sink.html'">Confirm Choices</button>
+            </div>
+        
+        
+        
+        
+        </div>
+        
+        
+        <img src="./img/footer.png" style="width:100vw;height:10vh">
+
+
+
+    
+        <!--onclick="document.getElementById('overlay').style.display = 'none';"-->
+    </div>
+
+    <img src="./img/header.png" style="width:100vw;height:10vh">
+    <div id="AppName">
+        <span style="font-size: 4.5vh;vertical-align: text-top;">RightNow</span>
+    </div>
+
+    <div id="bodycontent">
+        <div style="margin: 10px;">
+
+            <span style="font-weight: bold;">"RightNow" Would like to access your camera and send you notifications
+            </span>
+            <br>
+            <span style="font-size: .7em;">Clicking on the plus signs below will show details on how the listed permissions will be used.</span>
+            <br>
+            <br>
+
+            <div class="permission-header" onclick="ToggleDescription('camera-block')">
+                <div id="camera-block-click" style="font-weight:bold;">+</div>
+                <div style="flex: 1;">Camera</div>
+            </div>
+            <div id="camera-block" class="hidden-permission">
+                <span style="font-weight: bold;">
+                    To take photos, we need access to your device's camera
+                </span>
+                <br>
+                <br>
+
+                <span style="font-weight: bold;">How you'll use this</span><br>
+                <span style="font-size: .8em;">Sed lectus lacus, placerat in dapibus nec, rutrum fermentum urna. Proin quis ipsum mi.</span>
+                <br>
+                <br>
+
+                <span style="font-weight: bold;">How we'll use this</span><br>
+                <span style="font-size: .8em;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac justo id lacus rhoncus interdum.</span>
+                <br>
+                <br>
+
+                <span style="font-weight: bold;">How the settings work</span><br>
+                <span style="font-size: .8em;">You can change your permissions at
+                any time in your device settings. If you
+                allow camera access now, you won't
+                have to enable it next time you want to
+                use the camera.</span>
+
+            </div>
+            <!--Camera Block-->
+
+            <div class="permission-header" onclick="ToggleDescription('notification-block')">
+                <div id="notification-block-click" style="font-weight:bold;">+</div>
+                <div style="flex: 1;">Notification</div>
+            </div>
+            <div id="notification-block" class="hidden-permission">
+                <span style="font-weight: bold;">
+                    The only way to know when to post on RightNow is to enable notifications.
+                </span>
+                <br>
+                <br>
+                <br>
+
+                <span style="font-weight: bold;">How you'll use this</span><br>
+                In maximus orci ac arcu mattis, quis sodales libero
+                sodales.
+                <br>
+                <br>
+
+                <span style="font-weight: bold;">How we'll use this</span><br>
+                Nullam vehicula sem ac laoreet aliquam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                <br>
+                <br>
+
+                <span style="font-weight: bold;">How the settings work</span><br>
+                You can change your permissions at
+                any time in your device settings.
+
+            </div>
+            <!--Notification Block-->
+            <br>
+            <br>
+
+            </div>
+            <div class="center">
+                <div class="permission-header" >
+                    <button class="center-button" style="flex: 1;width:25vw;font-size: 0.8em;"
+                        onclick="window.location.href = 'sink.html';">Deny All</button>
+                    
+                        <button  class="center-button" style="flex: 1;width:25vw;font-size: .8em;"
+                        onclick="Prompt();">More Options</button>
+                    
+                    <button  class="center-button" style="flex: 1;width:25vw;font-size: .8em;"
+                        onclick="window.location.href = 'sink.html';">Allow All</button>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+    <div id="footer">
+        <img src="./img/footer.png" style="width:100vw;height:7vh">
+    </div>
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>RightNow</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery-3.6.1.min.js"></script>
+    <script src="index.js"></script>
+</head>
+
+<body onload="WriteToLog('page_loads')">
+
+    <div class="center">
+   
+        <img src="./img/header.png" style="width:100vw;height:10vh">
+        <div id="AppName" class="text-left">
+            RightNow
+        </div>
+
+        <div id="bodycontent">
+
+
+
+            <div id="bodycontent" class="text-left">
+
+                <span>
+                    <div id="name"></div>
+                </span>
+                <br>
+                <div class="center">
+                    <form action="consent1.html">
+
+                        <input  type="date" name="birthday"><br><br>
+
+                        <button type="submit" class="center-button">Continue</button>
+
+                    </form>
+                </div>
+                <br>
+
+                <script>
+                    const queryString = window.location.search;
+                    const urlParams = new URLSearchParams(queryString);
+                    document.getElementById("name").innerText = "Hi " + urlParams.get('name') + ", when is your birthday?";
+
+
+                </script>
+
+
+
+            </div>
+
+        </div>
+
+
+        <img src="./img/footer.png" style="width:100vw;height:7vh">
+
+
+    </div>
+    
+
+</body>
+
+</html>
