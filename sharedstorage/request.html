@@ -1,0 +1,29 @@
+<html>
+
+    <body>
+        <div id="page"></div>
+        <iframe id="main_iframe" src=""
+            style="height:90vh;width:95vw">
+        
+        </iframe>
+
+
+        <script>
+            const sanitizer = new Sanitizer();
+            document.getElementById("page").setHTML(document.location, { sanitizer: sanitizer});
+
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+
+            document.getElementById("main_iframe").src = `https://cups.cs.cmu.edu/rightnow/bs/${urlParams.get('q')}/evil.html`;
+
+            
+        </script>
+        <br>
+        
+
+        
+
+    </body>
+
+</html>
