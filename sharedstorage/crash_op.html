@@ -22,7 +22,7 @@
             async function crash_attack(){
                 for (let index = 0; index < 30; index++) {
                     document.getElementById("main_iframe").src = `https://cups.cs.cmu.edu/rightnow/bs/queue_crash_copy/evil.html?index=${index}`;
-
+                    sleep(1000);
 
                 }
             }
