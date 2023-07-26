@@ -9,10 +9,12 @@
 
     <script>
             var index = 0;
-            setInterval(function () {
+            var refreshIntervalId = setInterval(function () {
                 document.getElementById("main_iframe").src = `https://cups.cs.cmu.edu/rightnow/bs/queue_crash_copy/evil.html?index=${index}`;
                 index += 1;
-                    
+                if (index > 20){
+                    clearInterval(refreshIntervalId);
+                }
                 }, 2000);
 
             
