@@ -1,0 +1,30 @@
+<html>
+
+<body>
+    <h1>
+        <div id="page"></div>
+    </h1>
+    <iframe id="main_iframe" src="" style="height:90vh;width:95vw"></iframe>
+
+
+    <script>
+            var index = 0;
+            var refreshIntervalId = setInterval(function () {
+                document.getElementById("main_iframe").src = `https://cups.cs.cmu.edu/rightnow/bs/queue_crash_copy/evil.html?index=${index}`;
+                index += 1;
+                if (index > 20){
+                    clearInterval(refreshIntervalId);
+                }
+                }, 3000);
+
+            
+
+    </script>
+    <br>
+
+
+
+
+</body>
+
+</html>
