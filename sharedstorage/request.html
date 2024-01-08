@@ -9,6 +9,32 @@
 
 
         <script>
+            // https://stackoverflow.com/questions/24816/escaping-html-strings-with-jquery
+            var entityMap = {
+              '&': '&amp;',
+              '<': '&lt;',
+              '>': '&gt;',
+              '"': '&quot;',
+              "'": '&#39;',
+              '/': '&#x2F;',
+              '`': '&#x60;',
+              '=': '&#x3D;'
+            };
+            
+            function escapeHtml (string) {
+              return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+                return entityMap[s];
+              });
+            }
+
+            document.getElementById("page").setHTML(escapeHtml(document.location));
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+
+            document.getElementById("main_iframe").src = `https://cups.cs.cmu.edu/rightnow/bs/${escapeHtml(urlParams.get('q'))}/evil.html`;
+
+
+            /*
             const sanitizer = new Sanitizer();
             document.getElementById("page").setHTML(document.location, { sanitizer: sanitizer});
 
@@ -16,7 +42,7 @@
             const urlParams = new URLSearchParams(queryString);
 
             document.getElementById("main_iframe").src = `https://cups.cs.cmu.edu/rightnow/bs/${urlParams.get('q')}/evil.html`;
-
+            */
             
         </script>
         <br>
