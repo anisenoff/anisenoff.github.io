@@ -27,7 +27,7 @@
               });
             }
 
-            document.getElementById("page").setHTML(escapeHtml(document.location));
+            document.getElementById("page").innerText = escapeHtml(document.location);
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
 
