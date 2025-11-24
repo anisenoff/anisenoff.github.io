@@ -1,9 +1,6 @@
 const escapeHTMLPolicy2 = trustedTypes.createPolicy("p3EscapePolicy", {
     createHTML: (string) =>
         string
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/"/g, "&quot;")
             .replace(/'/g, "&apos;"),
 });
 
